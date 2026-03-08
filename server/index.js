@@ -24,7 +24,8 @@ app.use(cors({
   origin: [
     'https://jobtrackr-app-mu.vercel.app',
     'https://jobtrackr-app-three.vercel.app',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://localhost:5001'
   ],
   credentials: true
 }));
@@ -33,4 +34,12 @@ app.use('/api/jobs', jobsRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/reminders', remindersRouter);
 
-const PORT = process.env.PORT || 8
+const PORT = process.env.PORT || 8080;
+
+initDB().then(() => {
+  app.listen(PORT, () => console.log('Server running on port ' + PORT));
+}).catch(err => {
+  console.error('DB Error:', err.message);
+  console.error(err.stack);
+  process.exit(1);
+});
