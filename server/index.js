@@ -23,6 +23,7 @@ const remindersRouter = require('./routes/reminders');
 app.use(cors({
   origin: [
     'https://jobtrackr-app-mu.vercel.app',
+    'https://jobtrackr-app-three.vercel.app',
     'http://localhost:3000'
   ],
   credentials: true
@@ -32,11 +33,4 @@ app.use('/api/jobs', jobsRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/reminders', remindersRouter);
 
-const PORT = process.env.PORT || 8080;
-
-initDB().then(() => {
-  app.listen(PORT, () => console.log('Server running on port ' + PORT));
-}).catch(err => {
-  console.log('DB Error:', err.message);
-  process.exit(1);
-});
+const PORT = process.env.PORT || 8
