@@ -26,6 +26,7 @@ app.use(cors({
   origin: [
     'https://jobtrackr-app-mu.vercel.app',
     'https://jobtrackr-app-three.vercel.app',
+    'https://job-tracker-gray-rho.vercel.app',
     'http://localhost:3000',
     'http://localhost:5001'
   ],
