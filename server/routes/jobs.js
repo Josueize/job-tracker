@@ -18,11 +18,11 @@ router.get('/', auth, async (req, res) => {
 
 // POST new job
 router.post('/', auth, async (req, res) => {
-  const { company, role, status, date, link, notes } = req.body;
+  const { company, role, status, date, link, notes, salary } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO jobs (company, role, status, date, link, notes, user_id) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
-      [company, role, status, date, link, notes, req.userId]
+      'INSERT INTO jobs (company, role, status, date, link, notes, salary, user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
+      [company, role, status, date, link, notes, salary || 0, req.userId]
     );
     res.json(result.rows[0]);
   } catch (err) {
@@ -32,11 +32,11 @@ router.post('/', auth, async (req, res) => {
 
 // PUT update job
 router.put('/:id', auth, async (req, res) => {
-  const { company, role, status, date, link, notes } = req.body;
+  const { company, role, status, date, link, notes, salary } = req.body;
   try {
     const result = await pool.query(
-      'UPDATE jobs SET company=$1, role=$2, status=$3, date=$4, link=$5, notes=$6 WHERE id=$7 AND user_id=$8 RETURNING *',
-      [company, role, status, date, link, notes, req.params.id, req.userId]
+      'UPDATE jobs SET company=$1, role=$2, status=$3, date=$4, link=$5, notes=$6, salary=$7 WHERE id=$8 AND user_id=$9 RETURNING *',
+      [company, role, status, date, link, notes, salary || 0, req.params.id, req.userId]
     );
     res.json(result.rows[0]);
   } catch (err) {

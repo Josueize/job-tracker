@@ -10,7 +10,7 @@ async function initDB() {
   const client = await pool.connect();
   try {
     await client.query(`CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, password VARCHAR(255) NOT NULL, created_at TIMESTAMP DEFAULT NOW())`);
-    await client.query(`CREATE TABLE IF NOT EXISTS jobs (id SERIAL PRIMARY KEY, company VARCHAR(100), role VARCHAR(100), status VARCHAR(50), date DATE, link TEXT, notes TEXT, user_id INTEGER REFERENCES users(id))`);
+    await client.query(`CREATE TABLE IF NOT EXISTS jobs (id SERIAL PRIMARY KEY, company VARCHAR(100), role VARCHAR(100), status VARCHAR(50), date DATE, link TEXT, notes TEXT, salary INTEGER DEFAULT 0, user_id INTEGER REFERENCES users(id))`);
     console.log('Database tables ready!');
   } finally {
     client.release();
@@ -21,6 +21,7 @@ const app = express();
 const jobsRouter = require('./routes/jobs');
 const authRouter = require('./routes/auth');
 const remindersRouter = require('./routes/reminders');
+const aiRouter = require('./routes/ai');
 
 app.use(cors({
   origin: [
@@ -28,7 +29,8 @@ app.use(cors({
     'https://jobtrackr-app-three.vercel.app',
     'https://job-tracker-gray-rho.vercel.app',
     'http://localhost:3000',
-    'http://localhost:5001'
+    'http://localhost:5001',
+    'http://localhost:5002'
   ],
   credentials: true
 }));
@@ -36,6 +38,7 @@ app.use(express.json());
 app.use('/api/jobs', jobsRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/reminders', remindersRouter);
+app.use('/api/ai', aiRouter);
 
 const PORT = process.env.PORT || 8080;
 

@@ -3,8 +3,12 @@ import axios from "axios";
 import Analytics from "./Analytics";
 import exportToPDF from "./ExportPDF";
 import Reminder from "./Reminder";
+import Kanban from "./Kanban";
+import SalaryTracker from "./SalaryTracker";
+import CoverLetter from "./CoverLetter";
+import InterviewPrep from "./InterviewPrep";
 
-const API = "https://job-tracker-production-bacb.up.railway.app/api/jobs";
+const API = "http://localhost:5001/api/jobs";
 
 const statusConfig = {
   Applied: { color: "#60a5fa", bg: "rgba(96,165,250,0.12)", icon: "📤" },
@@ -14,7 +18,7 @@ const statusConfig = {
   Ghosted: { color: "#8b5cf6", bg: "rgba(139,92,246,0.12)", icon: "👻" },
 };
 
-const emptyForm = { company: "", role: "", status: "Applied", date: "", link: "", notes: "" };
+const emptyForm = { company: "", role: "", status: "Applied", date: "", link: "", notes: "", salary: "" };
 
 export default function JobTracker({ token, email, onLogout }) {
   const [jobs, setJobs] = useState([]);
@@ -22,7 +26,11 @@ export default function JobTracker({ token, email, onLogout }) {
   const [editId, setEditId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showKanban, setShowKanban] = useState(false);
+  const [showSalary, setShowSalary] = useState(false);
   const [reminderJob, setReminderJob] = useState(null);
+  const [coverLetterJob, setCoverLetterJob] = useState(null);
+  const [interviewJob, setInterviewJob] = useState(null);
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("date");
@@ -102,7 +110,8 @@ export default function JobTracker({ token, email, onLogout }) {
       status: job.status,
       date: job.date ? job.date.split("T")[0] : "",
       link: job.link || "",
-      notes: job.notes || ""
+      notes: job.notes || "",
+      salary: job.salary || ""
     });
     setEditId(job.id);
     setShowForm(true);
@@ -164,6 +173,14 @@ export default function JobTracker({ token, email, onLogout }) {
             <button className="btn" onClick={() => setShowAnalytics(true)}
               style={{ background: "#1e1e2e", color: "#a0aec0", padding: "12px 24px", fontSize: 14 }}>
               📊 Analytics
+            </button>
+            <button className="btn" onClick={() => setShowKanban(true)}
+              style={{ background: "#1e1e2e", color: "#a0aec0", padding: "12px 24px", fontSize: 14 }}>
+              📋 Kanban
+            </button>
+            <button className="btn" onClick={() => setShowSalary(true)}
+              style={{ background: "#1e1e2e", color: "#a0aec0", padding: "12px 24px", fontSize: 14 }}>
+              💰 Salary
             </button>
             <button className="btn" onClick={() => exportToPDF(jobs, email)}
               style={{ background: "#1e1e2e", color: "#a0aec0", padding: "12px 24px", fontSize: 14 }}>
@@ -243,13 +260,17 @@ export default function JobTracker({ token, email, onLogout }) {
                   <div style={{ fontSize: 13, color: "#555570" }}>
                     {job.date ? new Date(job.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "-"}
                   </div>
-                  <div style={{ display: "flex", gap: 8 }}>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                     <button className="btn" onClick={() => handleEdit(job)}
-                      style={{ background: "#1e1e2e", color: "#a0aec0", padding: "6px 14px", fontSize: 12 }}>Edit</button>
+                      style={{ background: "#1e1e2e", color: "#a0aec0", padding: "6px 12px", fontSize: 12 }}>Edit</button>
+                    <button className="btn" onClick={() => setCoverLetterJob(job)}
+                      style={{ background: "rgba(79,110,247,0.1)", color: "#4f6ef7", padding: "6px 12px", fontSize: 12 }}>✉️</button>
+                    <button className="btn" onClick={() => setInterviewJob(job)}
+                      style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", padding: "6px 12px", fontSize: 12 }}>🎯</button>
                     <button className="btn" onClick={() => setReminderJob(job)}
-                      style={{ background: "rgba(79,110,247,0.1)", color: "#4f6ef7", padding: "6px 14px", fontSize: 12 }}>🔔</button>
+                      style={{ background: "rgba(79,110,247,0.1)", color: "#4f6ef7", padding: "6px 12px", fontSize: 12 }}>🔔</button>
                     <button className="btn" onClick={() => handleDelete(job.id)}
-                      style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444", padding: "6px 14px", fontSize: 12 }}>Del</button>
+                      style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444", padding: "6px 12px", fontSize: 12 }}>Del</button>
                   </div>
                 </div>
               );
@@ -293,6 +314,11 @@ export default function JobTracker({ token, email, onLogout }) {
                 <input className="form-input" placeholder="Any notes..." value={form.notes}
                   onChange={e => setForm({ ...form, notes: e.target.value })} />
               </div>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 700, color: "#555570", textTransform: "uppercase", letterSpacing: "0.06em", display: "block", marginBottom: 6 }}>Expected Salary ($)</label>
+                <input className="form-input" type="number" placeholder="e.g. 85000"
+                  value={form.salary || ""} onChange={e => setForm({ ...form, salary: e.target.value })} />
+              </div>
             </div>
             <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
               <button className="btn" onClick={handleSubmit}
@@ -309,6 +335,10 @@ export default function JobTracker({ token, email, onLogout }) {
       )}
 
       {showAnalytics && <Analytics jobs={jobs} onClose={() => setShowAnalytics(false)} />}
+      {showKanban && <Kanban jobs={jobs} token={token} onClose={() => setShowKanban(false)} onUpdate={fetchJobs} />}
+      {showSalary && <SalaryTracker jobs={jobs} onClose={() => setShowSalary(false)} />}
+      {coverLetterJob && <CoverLetter job={coverLetterJob} token={token} onClose={() => setCoverLetterJob(null)} />}
+      {interviewJob && <InterviewPrep job={interviewJob} token={token} onClose={() => setInterviewJob(null)} />}
       {reminderJob && <Reminder job={reminderJob} token={token} onClose={() => setReminderJob(null)} />}
 
       {toast && (
