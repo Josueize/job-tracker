@@ -1,44 +1,75 @@
-# JobTrackr � Job Application Tracker
+# JobTrackr 🚀
 
-A full-stack web application that helps job seekers stay organized during their job search. Track applications, manage statuses, get AI-powered resume feedback, and visualize your progress.
+A senior-level full-stack job application tracker with AI-powered features.
 
-Live Demo: https://jobtrackr-app-mu.vercel.app
-Repository: https://github.com/Josueize/job-tracker
+**Live Demo:** https://job-tracker-gray-rho.vercel.app
 
-## How to Run Locally
+## Screenshots
 
-1. Clone the repository:
-git clone https://github.com/Josueize/job-tracker.git
-cd job-tracker
 
-2. Set up the backend:
-cd server
-npm install
-
-Create a .env file in the server folder:
-DATABASE_URL=your_postgresql_connection_string
-JWT_SECRET=your_jwt_secret
-CLAUDE_API_KEY=your_claude_api_key
-PORT=5000
-
-Start the backend:
-node index.js
-
-3. Set up the frontend:
-cd client
-npm install
-npm start
-
-The app will open at http://localhost:3000
+![Analytics](./pic2.png)
+![Dashboard](./pic3.png)
+![Dashboard](./pic5.png)
+![Login](./pic6.png)
+![Salary Tracker](./pic7.png)
+![Kanban Board](./pic8.png)
 
 ## Features
-- User authentication with JWT
-- Kanban board for application tracking
-- AI-powered resume feedback
-- Dashboard with application trend charts
-- Responsive design
+
+- ✅ JWT Authentication (Login/Register)
+- ✅ Add/Edit/Delete Job Applications
+- ✅ Status Tracking (Applied, Interview, Offer, Rejected, Ghosted)
+- ✅ Analytics Dashboard with Charts
+- ✅ Kanban Board with Drag & Drop
+- ✅ Salary Tracker & Comparison Chart
+- ✅ AI Cover Letter Generator (OpenAI)
+- ✅ AI Interview Prep Questions (OpenAI)
+- ✅ Email Reminders (Nodemailer)
+- ✅ Export to PDF
+- ✅ Dark/Light Mode
+- ✅ Fully Responsive (Mobile Friendly)
+
+## Tech Stack
+
+**Frontend:** React, Axios, Recharts, jsPDF
+
+**Backend:** Node.js, Express, PostgreSQL, JWT, Nodemailer, OpenAI
+
+**Deployment:** Vercel (frontend) + Railway (backend + database)
+
+## Getting Started
+
+### 1. Clone the repo
+\```bash
+git clone https://github.com/Josueize/job-tracker.git
+cd job-tracker
+\```
+
+### 2. Install dependencies
+\```bash
+npm install
+\```
+
+### 3. Create `.env` file
+\```
+PORT=5001
+OPENAI_API_KEY=your_openai_key
+EMAIL_USER=your_email
+EMAIL_PASS=your_app_password
+\```
+
+### 4. Start the backend
+\```bash
+node server/index.js
+\```
+
+### 5. Start the frontend
+\```bash
+npm start
+\```
 
 ## Author
-Josue (Izehiuwa Igiebor Omogiate)
-GitHub: https://github.com/Josueize
-LinkedIn: https://www.linkedin.com/in/izehiuwa-igiebor-b9753919b/
+
+**Izehiuwa Igiebor (Josue)**
+- GitHub: [@Josueize](https://github.com/Josueize)
+- Live: [job-tracker-gray-rho.vercel.app](https://job-tracker-gray-rho.vercel.app)
