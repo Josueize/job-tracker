@@ -7,12 +7,12 @@ A senior-level full-stack job application tracker with AI-powered features.
 ## Screenshots
 
 
-![Analytics](./pic2.png)
-![Dashboard](./pic3.png)
-![Dashboard](./pic5.png)
-![Login](./pic6.png)
-![Salary Tracker](./pic7.png)
-![Kanban Board](./pic8.png)
+![Analytics](screenshotAnalytic.png)
+![Dashboard](screenshotDashBoard.png)
+![Land Page](screenshotLandingPage.png)
+![Kanband Board](screenshotKanbanBoard.png)
+![Salary Tracker](screenshotSalaryTracker.png)
+
 
 ## Features
 
@@ -60,7 +60,7 @@ EMAIL_PASS=your_app_password
 
 ### 4. Start the backend
 \```bash
-node server/index.js
+
 \```
 
 ### 5. Start the frontend
