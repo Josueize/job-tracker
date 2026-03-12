@@ -6,13 +6,11 @@ A senior-level full-stack job application tracker with AI-powered features.
 
 ## Screenshots
 
-
 ![Analytics](screenshotAnalytic.png)
 ![Dashboard](screenshotDashBoard.png)
 ![Land Page](screenshotLandingPage.png)
 ![Kanband Board](screenshotKanbanBoard.png)
 ![Salary Tracker](screenshotSalaryTracker.png)
-
 
 ## Features
 
@@ -60,7 +58,7 @@ EMAIL_PASS=your_app_password
 
 ### 4. Start the backend
 \```bash
-
+node server/index.js
 \```
 
 ### 5. Start the frontend
@@ -68,8 +66,8 @@ EMAIL_PASS=your_app_password
 npm start
 \```
 
-## Author
 
-**Izehiuwa Igiebor (Josue)**
-- GitHub: [@Josueize](https://github.com/Josueize)
-- Live: [job-tracker-gray-rho.vercel.app](https://job-tracker-gray-rho.vercel.app)
+## Author
+Izehiuwa Igiebor Omogiate (Josue)
+GitHub: https://github.com/Josueize
+LinkedIn: https://www.linkedin.com/in/izehiuwa-igiebor-b9753919b/
