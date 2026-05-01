@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5001/api/jobs";
+const API = "https://job-tracker-production-bacb.up.railway.app/api/jobs";
 
 const columns = [
   { id: "Applied", label: "📤 Applied", color: "#60a5fa" },
@@ -39,7 +39,6 @@ export default function Kanban({ jobs, token, onClose, onUpdate }) {
             Close
           </button>
         </div>
-
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {columns.map(col => (
             <div key={col.id}
@@ -53,21 +52,11 @@ export default function Kanban({ jobs, token, onClose, onUpdate }) {
                   {jobs.filter(j => j.status === col.id).length}
                 </span>
               </div>
-
               {jobs.filter(j => j.status === col.id).map(job => (
                 <div key={job.id}
                   draggable
                   onDragStart={() => handleDragStart(job)}
-                  style={{
-                    background: "#0d0d14",
-                    border: "1px solid #1e1e2e",
-                    borderRadius: 12,
-                    padding: 14,
-                    marginBottom: 10,
-                    cursor: "grab",
-                    transition: "all 0.2s",
-                    opacity: dragging?.id === job.id ? 0.5 : 1,
-                  }}>
+                  style={{ background: "#0d0d14", border: "1px solid #1e1e2e", borderRadius: 12, padding: 14, marginBottom: 10, cursor: "grab", transition: "all 0.2s", opacity: dragging?.id === job.id ? 0.5 : 1 }}>
                   <div style={{ fontWeight: 700, fontSize: 14, color: "#e2e8f0", marginBottom: 4 }}>{job.company}</div>
                   <div style={{ fontSize: 12, color: "#a0aec0", marginBottom: 8 }}>{job.role}</div>
                   {job.date && (
@@ -77,11 +66,8 @@ export default function Kanban({ jobs, token, onClose, onUpdate }) {
                   )}
                 </div>
               ))}
-
               {jobs.filter(j => j.status === col.id).length === 0 && (
-                <div style={{ textAlign: "center", padding: "40px 0", color: "#555570", fontSize: 13 }}>
-                  Drop here
-                </div>
+                <div style={{ textAlign: "center", padding: "40px 0", color: "#555570", fontSize: 13 }}>Drop here</div>
               )}
             </div>
           ))}

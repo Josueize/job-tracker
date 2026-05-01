@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5001/api/ai";
+const API = "https://job-tracker-production-bacb.up.railway.app/api/ai";
 
 const categoryColors = {
   Technical: { color: "#4f6ef7", bg: "rgba(79,110,247,0.12)" },
@@ -38,24 +38,20 @@ export default function InterviewPrep({ job, token, onClose }) {
           <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: 24, fontWeight: 800, color: "#fff" }}>🎯 Interview Prep</h2>
           <button onClick={onClose} style={{ background: "#1e1e2e", border: "none", color: "#a0aec0", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600 }}>Close</button>
         </div>
-
         <p style={{ color: "#555570", fontSize: 14, marginBottom: 24 }}>
           AI-generated questions for <strong style={{ color: "#e2e8f0" }}>{job.role}</strong> at <strong style={{ color: "#e2e8f0" }}>{job.company}</strong>
         </p>
-
         {error && (
           <div style={{ background: "rgba(239,68,68,0.1)", border: "1px solid #ef4444", borderRadius: 10, padding: "10px 14px", marginBottom: 16, color: "#ef4444", fontSize: 14 }}>
             {error}
           </div>
         )}
-
         {!questions.length && !loading && (
           <button onClick={generate}
             style={{ width: "100%", background: "linear-gradient(135deg, #4f6ef7, #7c3aed)", color: "#fff", border: "none", padding: "14px", borderRadius: 12, cursor: "pointer", fontWeight: 700, fontSize: 15 }}>
             ✨ Generate Interview Questions
           </button>
         )}
-
         {loading && (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
             <div style={{ width: 40, height: 40, border: "3px solid #1e1e2e", borderTopColor: "#4f6ef7", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
@@ -63,7 +59,6 @@ export default function InterviewPrep({ job, token, onClose }) {
             <p style={{ color: "#555570", fontSize: 14 }}>AI is preparing your questions...</p>
           </div>
         )}
-
         {questions.length > 0 && (
           <>
             <div style={{ marginBottom: 16 }}>

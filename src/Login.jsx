@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useTheme } from "./ThemeContext";
 
-const AUTH_URL = "http://localhost:5001/api/auth";
+const AUTH_URL = "https://job-tracker-production-bacb.up.railway.app/api/auth";
 
 export default function Login({ onLogin, switchToRegister }) {
   const [email, setEmail] = useState("");
