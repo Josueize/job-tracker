@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5001/api/ai";
+const API = "https://job-tracker-production-bacb.up.railway.app/api/ai";
 
 export default function CoverLetter({ job, token, onClose }) {
   const [letter, setLetter] = useState("");

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AUTH_URL = "http://localhost:5001/api/auth";
+const AUTH_URL = "https://job-tracker-production-bacb.up.railway.app/api/auth";
 
 export default function Register({ onLogin, switchToLogin }) {
   const [email, setEmail] = useState("");

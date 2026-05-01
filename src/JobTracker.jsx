@@ -8,7 +8,7 @@ import SalaryTracker from "./SalaryTracker";
 import CoverLetter from "./CoverLetter";
 import InterviewPrep from "./InterviewPrep";
 
-const API = "http://localhost:5001/api/jobs";
+const API = "https://job-tracker-production-bacb.up.railway.app/api/jobs";
 
 const statusConfig = {
   Applied: { color: "#60a5fa", bg: "rgba(96,165,250,0.12)", icon: "📤" },
